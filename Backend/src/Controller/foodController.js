@@ -1,6 +1,7 @@
 import Food from "../Model/Food.js";
 
-// GET all foods
+const MAIN_BACKEND_URL = "http://localhost:5001";
+
 export const getFoods = async (req, res) => {
   try {
     const foods = await Food.find();
@@ -10,7 +11,6 @@ export const getFoods = async (req, res) => {
   }
 };
 
-// GET single food
 export const getFoodById = async (req, res) => {
   try {
     const food = await Food.findById(req.params.id);
@@ -21,13 +21,12 @@ export const getFoodById = async (req, res) => {
   }
 };
 
-// CREATE food
 export const createFood = async (req, res) => {
   const { name, price, description, category } = req.body;
 
   try {
     const imageUrl = req.file
-      ? `${req.protocol}://${req.get("host")}/images/${req.file.filename}`
+      ? `${MAIN_BACKEND_URL}/uploads/${req.file.filename}`
       : null;
 
     const newFood = new Food({
@@ -45,13 +44,12 @@ export const createFood = async (req, res) => {
   }
 };
 
-// UPDATE food
 export const updateFood = async (req, res) => {
   try {
     const updatedFields = req.body;
 
     if (req.file) {
-      updatedFields.image = `${req.protocol}://${req.get("host")}/images/${req.file.filename}`;
+      updatedFields.image = `${MAIN_BACKEND_URL}/uploads/${req.file.filename}`;
     }
 
     const updatedFood = await Food.findByIdAndUpdate(
@@ -67,7 +65,6 @@ export const updateFood = async (req, res) => {
   }
 };
 
-// DELETE food
 export const deleteFood = async (req, res) => {
   try {
     const deletedFood = await Food.findByIdAndDelete(req.params.id);
