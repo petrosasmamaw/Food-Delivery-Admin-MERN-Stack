@@ -1,37 +1,42 @@
 import Order from "../Model/Order.js";
 
-// Get all orders for a user
+// GET all orders
 export const getOrders = async (req, res) => {
   try {
-    const orders = await Order.find({ userId: req.params.userId });
+    const orders = await Order.find().sort({ createdAt: -1 });
     res.json(orders);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching orders", error });
   }
 };
 
-// Create a new order
+// CREATE a new order
 export const createOrder = async (req, res) => {
-  const { userId, items, totalAmount } = req.body;
   try {
-    const newOrder = new Order({ userId, items, totalAmount });
-    await newOrder.save();
-    res.status(201).json(newOrder);
-  } catch (err) {
-    res.status(400).json({ message: err.message });
+    const order = new Order(req.body);
+    await order.save();
+    res.status(201).json(order);
+  } catch (error) {
+    res.status(500).json({ message: "Error creating order", error });
   }
 };
 
-// Update order status
-export const updateOrderStatus = async (req, res) => {
+// UPDATE order status
+export const updateOrder = async (req, res) => {
   try {
-    const updatedOrder = await Order.findByIdAndUpdate(
-      req.params.id,
-      { status: req.body.status },
-      { new: true }
-    );
-    res.json(updatedOrder);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
+    const order = await Order.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    res.json(order);
+  } catch (error) {
+    res.status(500).json({ message: "Error updating order", error });
+  }
+};
+
+// DELETE an order
+export const deleteOrder = async (req, res) => {
+  try {
+    await Order.findByIdAndDelete(req.params.id);
+    res.json({ message: "Order deleted" });
+  } catch (error) {
+    res.status(500).json({ message: "Error deleting order", error });
   }
 };
