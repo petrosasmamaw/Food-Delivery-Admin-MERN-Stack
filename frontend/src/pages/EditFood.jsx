@@ -24,16 +24,16 @@ export default function EditFood(){
   };
 
   return (
-    <div className="max-w-2xl mx-auto bg-white p-6 rounded shadow">
-      <h2 className="text-2xl font-semibold mb-4">Edit Food</h2>
+    <div className="max-w-2xl mx-auto bg-white rounded-2xl shadow-lg p-8">
+      <h2 className="text-2xl font-bold mb-4">Edit Food</h2>
       <form onSubmit={submit} className="space-y-4">
-        <input value={form.name} onChange={e=>setForm({...form, name: e.target.value})} placeholder="Name" className="w-full p-2 border rounded" />
-        <input value={form.price} onChange={e=>setForm({...form, price: e.target.value})} placeholder="Price" type="number" className="w-full p-2 border rounded" />
-        <input value={form.category} onChange={e=>setForm({...form, category: e.target.value})} placeholder="Category" className="w-full p-2 border rounded" />
-        <textarea value={form.description} onChange={e=>setForm({...form, description: e.target.value})} placeholder="Description" className="w-full p-2 border rounded" />
-        <div className="flex gap-2">
-          <button className="bg-indigo-600 text-white px-4 py-2 rounded">Save</button>
-          <button type="button" onClick={()=>navigate('/foods')} className="px-4 py-2 border rounded">Cancel</button>
+        <input value={form.name} onChange={e=>setForm({...form, name: e.target.value})} placeholder="Name" className="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-200" />
+        <input value={form.price} onChange={e=>setForm({...form, price: e.target.value})} placeholder="Price" type="number" className="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-200" />
+        <input value={form.category} onChange={e=>setForm({...form, category: e.target.value})} placeholder="Category" className="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-200" />
+        <textarea value={form.description} onChange={e=>setForm({...form, description: e.target.value})} placeholder="Description" className="w-full p-3 border border-gray-200 rounded-lg h-28"></textarea>
+        <div className="flex gap-3">
+          <button className="flex-1 bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-4 py-2 rounded-lg">Save</button>
+          <button type="button" onClick={()=>navigate('/foods')} className="flex-1 border border-gray-200 px-4 py-2 rounded-lg">Cancel</button>
         </div>
       </form>
     </div>
