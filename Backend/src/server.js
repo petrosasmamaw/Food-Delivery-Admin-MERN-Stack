@@ -5,7 +5,7 @@ import dotenv from "dotenv";
 import path from "path";
 import { fileURLToPath } from "url";
 
-import foodRoutes from "./Route/foodRouter.js";
+import foodRoutes from "./Route/foodrouter.js";
 import orderRoutes from "./Route/orderRouter.js";
 
 dotenv.config();
